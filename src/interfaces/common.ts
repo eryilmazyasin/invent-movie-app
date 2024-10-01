@@ -10,11 +10,6 @@ export interface IMovie {
   Poster: string;
 }
 
-interface Rating {
-  Source: string;
-  Value: string;
-}
-
 export interface IMoviesResponseResult {
   Response: string;
   Search: IMovie[];
@@ -49,3 +44,5 @@ export interface IMovieDetail {
   Website: string;
   Response: string;
 }
+
+export type IType = "movie" | "series" | "episode";

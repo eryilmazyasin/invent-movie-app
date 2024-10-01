@@ -1,0 +1,11 @@
+.movie-filters-wrapper {
+  // sx={{ display: "flex", gap: 2, mb: 2, flexWrap: "wrap" }}
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+
+  & .type-filter {
+    min-width: 120px;
+  }
+}
