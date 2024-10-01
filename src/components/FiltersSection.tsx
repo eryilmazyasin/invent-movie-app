@@ -46,7 +46,11 @@ const FiltersSection = (props: IProps) => {
       <TextField
         label="Year"
         value={year || ""}
-        onChange={(e) => onYearChange(e.target.value)}
+        onChange={(e) => {
+          if (/^\d*$/.test(e.target.value)) {
+            onYearChange(e.target.value);
+          }
+        }}
         type="number"
       />
       {/* Type Filter */}
