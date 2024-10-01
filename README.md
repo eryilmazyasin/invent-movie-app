@@ -1,6 +1,7 @@
 # Movie Search App
 
 This is a React application that allows users to search for movies and view detailed information about them using the [OMDb API](http://www.omdbapi.com/).
+## Live demo: https://invent-movie-app.vercel.app/
 
 ## Getting Started
 
