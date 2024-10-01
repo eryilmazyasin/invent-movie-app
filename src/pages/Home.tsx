@@ -19,9 +19,11 @@ import MovieItem from "@/components/MovieItem";
 import Pagination from "@/components/Pagination";
 import useMovies from "@/hooks/useMovies";
 
+type IType = "movie" | "series" | "episode";
+
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState("Pokemon");
-  const [type, setType] = useState("movie");
+  const [type, setType] = useState<IType>("movie");
   const [year, setYear] = useState<string | undefined>(undefined);
   const [page, setPage] = useState(1);
   const { mutate, data, isPending, error } = useMovies();
@@ -46,7 +48,7 @@ const Home = () => {
   };
 
   const renderMovieItems = useMemo(() => {
-    if (!data) return;
+    if (!data || !data.Search) return;
 
     return (
       <div className="movie-list-wrapper">
@@ -61,7 +63,7 @@ const Home = () => {
     if (!error) return;
 
     return (
-      <Typography variant="h3" component="h2">
+      <Typography variant="h5" component="h2" textAlign="center" p={5}>
         Error fetching movies
       </Typography>
     );
@@ -72,6 +74,17 @@ const Home = () => {
 
     return <Loading />;
   }, [isPending]);
+  console.log({ data });
+
+  const renderNoResult = () => {
+    if (data && !data.Error) return;
+
+    return (
+      <Typography variant="h5" component="h2" textAlign="center" p={5}>
+        There is nothing to show.
+      </Typography>
+    );
+  };
 
   return (
     <Container>
@@ -99,7 +112,7 @@ const Home = () => {
             labelId="type-label"
             value={type}
             label="Type"
-            onChange={(e) => setType(e.target.value)}
+            onChange={(e) => setType(e.target.value as IType)}
           >
             <MenuItem value="movie">Movies</MenuItem>
             <MenuItem value="series">TV Series</MenuItem>
@@ -119,6 +132,7 @@ const Home = () => {
 
       {renderLoading}
       {renderError}
+      {renderNoResult()}
       {renderMovieItems}
       <Pagination
         page={page}

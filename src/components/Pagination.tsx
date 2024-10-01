@@ -31,7 +31,7 @@ const Pagination = (props: IProps) => {
       <Button
         variant="outlined"
         onClick={onNextPage}
-        disabled={!data || data.Search.length === 0} // Eğer veri yoksa "Next" pasif
+        disabled={!data || data?.Search?.length === 0} // Eğer veri yoksa "Next" pasif
       >
         Next Page
       </Button>

@@ -15,4 +15,5 @@ export interface IMoviesResponseResult {
   Response: string;
   Search: IMovie[];
   totalResults: string;
+  Error: string;
 }
