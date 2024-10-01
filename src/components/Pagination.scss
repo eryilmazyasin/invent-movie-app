@@ -8,4 +8,10 @@
   & .MuiButtonBase-root {
     font-size: 14px;
   }
+
+  @media screen and (max-width: 768px) {
+    & .MuiButtonBase-root {
+      font-size: 11px;
+    }
+  }
 }
