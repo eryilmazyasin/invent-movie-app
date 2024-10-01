@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import "@/styles/movieDetail.scss";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack"; // Geri dönme ikonu
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Box, Button, IconButton, Typography } from "@mui/material";
 
 import Loading from "@/components/Loading";

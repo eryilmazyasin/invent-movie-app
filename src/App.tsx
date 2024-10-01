@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-import Home from "@/pages/Home"; // Ana sayfa (film listesi)
+import Home from "@/pages/Home";
 import MovieDetail from "./pages/MovieDetail";
 
 const App: React.FC = () => {
