@@ -13,6 +13,9 @@ interface IProps {
 }
 const Pagination = (props: IProps) => {
   const { page, data, onPreviousPage, onNextPage } = props;
+
+  if (data && data.Error) return;
+
   return (
     <Box className="pagination-wrapper">
       <Button

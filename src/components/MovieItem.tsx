@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import "./MovieItem.scss";
@@ -10,8 +11,14 @@ interface MovieItemProps {
 }
 
 const MovieItem: React.FC<MovieItemProps> = ({ movie }) => {
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    navigate(`/movie/${movie.imdbID}`); // Detay sayfasına yönlendirme
+  };
+
   return (
-    <Card className="movie-card-item">
+    <Card className="movie-card-item" onClick={handleCardClick}>
       <CardMedia
         component="img"
         height="350"

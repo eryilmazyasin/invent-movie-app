@@ -10,13 +10,13 @@ import {
   MenuItem,
   Select,
   TextField,
-  Typography,
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 
 import Loading from "@/components/Loading";
 import MovieItem from "@/components/MovieItem";
 import Pagination from "@/components/Pagination";
+import ResultMessage from "@/components/ResultMessage";
 import useMovies from "@/hooks/useMovies";
 
 type IType = "movie" | "series" | "episode";
@@ -30,7 +30,7 @@ const Home = () => {
 
   useEffect(() => {
     mutate({ searchTerm, type, year, page });
-  }, [searchTerm, type, year, page]);
+  }, []);
 
   const applyFilters = () => {
     setPage(1);
@@ -62,11 +62,7 @@ const Home = () => {
   const renderError = useMemo(() => {
     if (!error) return;
 
-    return (
-      <Typography variant="h5" component="h2" textAlign="center" p={5}>
-        Error fetching movies
-      </Typography>
-    );
+    return <ResultMessage text="Error fetching movies" />;
   }, [error]);
 
   const renderLoading = useMemo(() => {
@@ -79,11 +75,7 @@ const Home = () => {
   const renderNoResult = () => {
     if (data && !data.Error) return;
 
-    return (
-      <Typography variant="h5" component="h2" textAlign="center" p={5}>
-        There is nothing to show.
-      </Typography>
-    );
+    return <ResultMessage text="There is nothing to show." />;
   };
 
   return (
@@ -96,7 +88,6 @@ const Home = () => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-
         {/* Year Filter */}
         <TextField
           label="Year"
@@ -104,7 +95,6 @@ const Home = () => {
           onChange={(e) => setYear(e.target.value)}
           type="number"
         />
-
         {/* Type Filter */}
         <FormControl className="type-filter">
           <InputLabel id="type-label">Type</InputLabel>
@@ -119,7 +109,6 @@ const Home = () => {
             <MenuItem value="episode">Episodes</MenuItem>
           </Select>
         </FormControl>
-
         {/* Apply Filters Button */}
         <Button
           variant="contained"

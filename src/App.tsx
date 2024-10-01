@@ -11,9 +11,7 @@ const App: React.FC = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* <Route path="/movie/:id" element={<MovieDetail />} /> */}
-        <Route path="/moviedetail/" element={<MovieDetail />} />{" "}
-        {/* Film detay sayfası */}
+        <Route path="/movie/:id" element={<MovieDetail />} />
       </Routes>
     </Router>
   );
