@@ -3,3 +3,5 @@ export const BASE_URL = process.env.REACT_APP_OMDB_BASE_URL;
 
 export const initialSearchTermValue = "Pokemon";
 export const initialTypeValue = "movie";
+export const noImageUrl =
+  "https://dummyimage.com/400x600/000/fff&text=No+Image";

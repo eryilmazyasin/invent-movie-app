@@ -1,0 +1,11 @@
+.movie-detail-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+
+  & .movie-detail-img {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+}

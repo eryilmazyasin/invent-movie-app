@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import "./MovieItem.scss";
 
+import { noImageUrl } from "@/constants";
 import { IMovie } from "@/interfaces/common";
 
 interface MovieItemProps {
@@ -14,7 +15,7 @@ const MovieItem: React.FC<MovieItemProps> = ({ movie }) => {
   const navigate = useNavigate();
 
   const handleCardClick = () => {
-    navigate(`/movie/${movie.imdbID}`); // Detay sayfasına yönlendirme
+    navigate(`/movie/${movie.imdbID}`);
   };
 
   return (
@@ -22,7 +23,7 @@ const MovieItem: React.FC<MovieItemProps> = ({ movie }) => {
       <CardMedia
         component="img"
         height="350"
-        image={movie.Poster !== "N/A" ? movie.Poster : "/no-image.jpg"}
+        image={movie.Poster !== "N/A" ? movie.Poster : noImageUrl}
         alt={movie.Title}
       />
       <CardContent>
