@@ -20,7 +20,7 @@ const Home = () => {
 
   useEffect(() => {
     mutate({ searchTerm, type, year, page });
-  }, []);
+  }, [page]);
 
   const handleApplyFilters = () => {
     setPage(1);
@@ -28,10 +28,12 @@ const Home = () => {
   };
 
   const handleNextPage = () => {
+    console.log("burada 2");
     setPage((prevPage) => prevPage + 1);
   };
 
   const handlePreviousPage = () => {
+    console.log("burada");
     if (page > 1) {
       setPage((prevPage) => prevPage - 1);
     }
@@ -62,9 +64,9 @@ const Home = () => {
   }, [isPending]);
 
   const renderNoResult = useMemo(() => {
-    if (data && !data.Error && data.Response !== "False") return;
-
-    return <ResultMessage text="There is nothing to show." />;
+    if (data && data.Error === "Movie not found!") {
+      return <ResultMessage text="There is nothing to show." />;
+    }
   }, [data]);
 
   return (
