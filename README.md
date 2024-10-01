@@ -26,10 +26,12 @@ Make sure you have the following installed on your machine:
 
 2. **Set up your environment variables**:
 
+   ```bash
    REACT_APP_OMDB_API_KEY=your_omdb_api_key
    REACT_APP_OMDB_BASE_URL=http://www.omdbapi.com/
+   ```
 
-   Replace your_omdb_api_key with your own API key, which you can obtain from OMDb API.
+Replace your_omdb_api_key with your own API key, which you can obtain from OMDb API.
 
 3. **Running the Application**:
 
