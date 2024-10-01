@@ -1,0 +1,18 @@
+.movie-list-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 50px 0 50px 0;
+}
+
+.movie-filters-wrapper {
+  // sx={{ display: "flex", gap: 2, mb: 2, flexWrap: "wrap" }}
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+
+  & .type-filter {
+    min-width: 120px;
+  }
+}

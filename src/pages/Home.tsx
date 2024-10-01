@@ -1,116 +1,132 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
-import { IMoviesParams } from "@/api/getMovies";
+import "@/styles/home.scss";
+import {
+  Box,
+  Button,
+  Container,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+} from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
+
+import Loading from "@/components/Loading";
 import MovieItem from "@/components/MovieItem";
-import { initialSearchTermValue, initialTypeValue } from "@/constants";
+import Pagination from "@/components/Pagination";
 import useMovies from "@/hooks/useMovies";
 
-type IType = "movie" | "series" | "episode";
-
 const Home = () => {
-  const [searchTerm, setSearchTerm] = useState(
-    initialSearchTermValue || "Pokemon"
-  ); // Varsayılan arama terimi "Pokemon"
-  const [type, setType] = useState<IType>(initialTypeValue);
+  const [searchTerm, setSearchTerm] = useState("Pokemon");
+  const [type, setType] = useState("movie");
   const [year, setYear] = useState<string | undefined>(undefined);
   const [page, setPage] = useState(1);
-
-  // useMovies hook'u ile mutate fonksiyonunu alıyoruz
   const { mutate, data, isPending, error } = useMovies();
 
-  // Uygulama ilk yüklendiğinde "Pokemon" araması yapılacak
   useEffect(() => {
-    const params: IMoviesParams = {
-      searchTerm: "Pokemon",
-      type,
-      year,
-      page,
-    };
-    mutate(params); // İlk yükleme sırasında Pokemon araması tetikleniyor
-  }, []); // Boş dependency array, sadece component mount olduğunda çalışır
+    mutate({ searchTerm, type, year, page });
+  }, [searchTerm, type, year, page]);
 
-  // Arama ve filtreleri uygulamak için fonksiyon
   const applyFilters = () => {
-    const params: IMoviesParams = {
-      searchTerm,
-      type,
-      year,
-      page,
-    };
-    mutate(params); // mutate fonksiyonuyla istek tetiklenir
+    setPage(1);
+    mutate({ searchTerm, type, year, page });
   };
 
-  // Yükleniyor durumunu kontrol et
-  if (isPending) return <div>Loading...</div>;
+  const handleNextPage = () => {
+    setPage((prevPage) => prevPage + 1);
+  };
 
-  // Hata durumunu kontrol et
-  if (error) return <div>Error loading movies</div>;
+  const handlePreviousPage = () => {
+    if (page > 1) {
+      setPage((prevPage) => prevPage - 1);
+    }
+  };
+
+  const renderMovieItems = useMemo(() => {
+    if (!data) return;
+
+    return (
+      <div className="movie-list-wrapper">
+        {data.Search.map((movie) => (
+          <MovieItem key={movie.imdbID} movie={movie} />
+        ))}
+      </div>
+    );
+  }, [data]);
+
+  const renderError = useMemo(() => {
+    if (!error) return;
+
+    return (
+      <Typography variant="h3" component="h2">
+        Error fetching movies
+      </Typography>
+    );
+  }, [error]);
+
+  const renderLoading = useMemo(() => {
+    if (!isPending) return;
+
+    return <Loading />;
+  }, [isPending]);
 
   return (
-    <div>
-      <h1>Movie List</h1>
-      <div style={{ marginBottom: "20px" }}>
-        {/* Arama alanı */}
-        <input
-          type="text"
+    <Container>
+      <h1>Movie Search</h1>
+      <Box className="movie-filters-wrapper">
+        {/* Search Term */}
+        <TextField
+          label="Search Movies"
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)} // Arama terimini güncelleme
-          placeholder="Search for movies"
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
 
-        {/* Tür seçme */}
-        <select
-          value={type}
-          onChange={(e) =>
-            setType(e.target.value as "movie" | "series" | "episode")
-          }
-        >
-          <option value="movie">Movies</option>
-          <option value="series">TV Series</option>
-          <option value="episode">Episodes</option>
-        </select>
-
-        {/* Yıl filtresi */}
-        <input
-          type="number"
+        {/* Year Filter */}
+        <TextField
+          label="Year"
           value={year || ""}
-          onChange={(e) => setYear(e.target.value || undefined)} // Yıl filtresi
-          placeholder="Year (optional)"
+          onChange={(e) => setYear(e.target.value)}
+          type="number"
         />
 
-        {/* Filtreleri uygulama düğmesi */}
-        <button onClick={applyFilters}>Apply Filters</button>
-      </div>
+        {/* Type Filter */}
+        <FormControl className="type-filter">
+          <InputLabel id="type-label">Type</InputLabel>
+          <Select
+            labelId="type-label"
+            value={type}
+            label="Type"
+            onChange={(e) => setType(e.target.value)}
+          >
+            <MenuItem value="movie">Movies</MenuItem>
+            <MenuItem value="series">TV Series</MenuItem>
+            <MenuItem value="episode">Episodes</MenuItem>
+          </Select>
+        </FormControl>
 
-      {/* Sayfa gezintisi */}
-      <div style={{ marginBottom: "20px" }}>
-        <button
-          onClick={() => {
-            setPage((prev) => Math.max(prev - 1, 1));
-            applyFilters(); // Sayfa değiştiğinde tekrar filtre uygula
-          }}
-          disabled={page === 1}
+        {/* Apply Filters Button */}
+        <Button
+          variant="contained"
+          onClick={applyFilters}
+          endIcon={<SendIcon />}
         >
-          Previous Page
-        </button>
-        <button
-          onClick={() => {
-            setPage((prev) => prev + 1);
-            applyFilters(); // Sayfa değiştiğinde tekrar filtre uygula
-          }}
-          disabled={!data?.Search}
-        >
-          Next Page
-        </button>
-      </div>
+          Apply Filters
+        </Button>
+      </Box>
 
-      {/* Filmleri listeleme */}
-      {data?.Search ? (
-        <MovieItem movies={data.Search} />
-      ) : (
-        <div>No movies found</div>
-      )}
-    </div>
+      {renderLoading}
+      {renderError}
+      {renderMovieItems}
+      <Pagination
+        page={page}
+        data={data}
+        onPreviousPage={handlePreviousPage}
+        onNextPage={handleNextPage}
+      />
+    </Container>
   );
 };
 

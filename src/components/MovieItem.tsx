@@ -1,23 +1,37 @@
 import React from "react";
 
-import { IMovies } from "@/interfaces/common"; // IMovie interface'i
+import { Card, CardContent, CardMedia, Typography } from "@mui/material";
+import "./MovieItem.scss";
 
-interface IProps {
-  movies: IMovies[];
+import { IMovie } from "@/interfaces/common";
+
+interface MovieItemProps {
+  movie: IMovie;
 }
 
-const MovieList = ({ movies }: IProps) => {
+const MovieItem: React.FC<MovieItemProps> = ({ movie }) => {
   return (
-    <ul>
-      {movies.map((movie) => (
-        <li key={movie.imdbID}>
-          <h2>{movie.Title}</h2>
-          <p>{movie.Year}</p>
-          <img src={movie.Poster} alt={movie.Title} />
-        </li>
-      ))}
-    </ul>
+    <Card className="movie-card-item">
+      <CardMedia
+        component="img"
+        height="350"
+        image={movie.Poster !== "N/A" ? movie.Poster : "/no-image.jpg"}
+        alt={movie.Title}
+      />
+      <CardContent>
+        <Typography variant="h6" component="div">
+          {movie.Title}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          Year: {movie.Year}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          Type: {movie.Type}
+        </Typography>
+        <Typography className="imdbid-text">imdbID: {movie.imdbID}</Typography>
+      </CardContent>
+    </Card>
   );
 };
 
-export default MovieList;
+export default MovieItem;

@@ -1,0 +1,12 @@
+.pagination-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 30px 10px;
+
+  & .MuiButtonBase-root {
+    // text-transform: none;
+    font-size: 14px;
+  }
+}
