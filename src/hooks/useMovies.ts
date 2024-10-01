@@ -12,12 +12,10 @@ const useMovies = () => {
       return getMovies(params);
     },
     onSuccess: (data, variables) => {
-      const { searchTerm, type, year, page } = variables;
-      const queryKey = ["movies", searchTerm, type, year, page];
-
-      queryClient.setQueryData(queryKey, data);
-
-      console.log("Data successfully updated in the cache for:", queryKey);
+      // const { searchTerm, type, year, page } = variables;
+      // const queryKey = ["movies", searchTerm, type, year, page];
+      // queryClient.setQueryData(queryKey, data);
+      // console.log("Data successfully updated in the cache for:", queryKey);
     },
     onError: (error) => {
       console.error("Error fetching movies:", error);

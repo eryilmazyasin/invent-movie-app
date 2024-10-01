@@ -61,11 +61,11 @@ const Home = () => {
     return <Loading />;
   }, [isPending]);
 
-  const renderNoResult = () => {
-    if (data && !data.Error) return;
+  const renderNoResult = useMemo(() => {
+    if (data && !data.Error && data.Response !== "False") return;
 
     return <ResultMessage text="There is nothing to show." />;
-  };
+  }, [data]);
 
   return (
     <Container>
@@ -82,7 +82,7 @@ const Home = () => {
 
       {renderLoading}
       {renderError}
-      {renderNoResult()}
+      {renderNoResult}
       {renderMovieItems}
 
       <Pagination
