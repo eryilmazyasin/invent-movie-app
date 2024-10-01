@@ -13,7 +13,8 @@
 
 # misc
 .DS_Store
-.env
+# .env commented on purpose, you do not need to create a new one for your local.
+# .env 
 .env.local
 .env.development.local
 .env.test.local
