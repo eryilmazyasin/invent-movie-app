@@ -1,3 +1,7 @@
+// create a .env file and enter your values
+// REACT_APP_OMDB_API_KEY = e5805ab9
+// REACT_APP_OMDB_BASE_URL=http://www.omdbapi.com/
+
 export const API_KEY = process.env.REACT_APP_OMDB_API_KEY;
 export const BASE_URL = process.env.REACT_APP_OMDB_BASE_URL;
 
