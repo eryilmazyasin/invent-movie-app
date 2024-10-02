@@ -64,7 +64,10 @@ const Home = () => {
   }, [isPending]);
 
   const renderNoResult = useMemo(() => {
-    if (data && data.Error === "Movie not found!") {
+    if (
+      data &&
+      (data.Error === "Movie not found!" || data.Error === "Series not found!")
+    ) {
       return <ResultMessage text="There is nothing to show." />;
     }
   }, [data]);
