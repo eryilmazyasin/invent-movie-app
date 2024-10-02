@@ -66,7 +66,9 @@ const Home = () => {
   const renderNoResult = useMemo(() => {
     if (
       data &&
-      (data.Error === "Movie not found!" || data.Error === "Series not found!")
+      (data.Error === "Movie not found!" ||
+        data.Error === "Series not found!" ||
+        data.Error === "Incorrect IMDb ID.")
     ) {
       return <ResultMessage text="There is nothing to show." />;
     }
