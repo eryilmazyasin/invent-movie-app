@@ -28,12 +28,10 @@ const Home = () => {
   };
 
   const handleNextPage = () => {
-    console.log("burada 2");
     setPage((prevPage) => prevPage + 1);
   };
 
   const handlePreviousPage = () => {
-    console.log("burada");
     if (page > 1) {
       setPage((prevPage) => prevPage - 1);
     }
