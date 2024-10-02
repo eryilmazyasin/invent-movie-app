@@ -1,6 +1,6 @@
 import React from "react";
 
-import SendIcon from "@mui/icons-material/Send";
+import SearchIcon from "@mui/icons-material/Search";
 import {
   Box,
   Button,
@@ -71,7 +71,7 @@ const FiltersSection = (props: IProps) => {
       <Button
         variant="contained"
         onClick={onApplyFilters}
-        endIcon={<SendIcon />}
+        endIcon={<SearchIcon />}
       >
         Apply Filters
       </Button>
